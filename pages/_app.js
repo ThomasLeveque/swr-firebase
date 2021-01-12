@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
     <ChakraProvider resetCSS>
       <Box backgroundColor="gray.200" h="100vh">
         <Nav />
-        <Container maxW="6xl">
+        <Container as="main" maxW="6xl">
           <Component {...pageProps} />
         </Container>
       </Box>

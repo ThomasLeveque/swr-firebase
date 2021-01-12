@@ -1,25 +1,29 @@
 import Head from 'next/head';
+import { Heading, Spinner } from '@chakra-ui/react';
+
 import useCollection from '../hooks/useCollection';
+import TotoItem from '../components/toto-item';
 
 // Client-side only
-export default function About() {
-  const { data: totos } = useCollection('totos', { where: ['value', '==', 1] });
+const AboutPage = () => {
+  const { data: totos } = useCollection('totos');
 
   return (
-    <div>
+    <>
       <Head>
         <title>SWR Firebase - About</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
-      <Heading as="h1">About</Heading>
-        {!totos ? (
-          <p>Loading...</p>
-        ) : (
-          totos.map((toto) => <p key={toto.id}>{toto.name}</p>)
-        )}
-      </main>
-    </div>
+      <Heading as="h1" mb={3}>
+        About
+      </Heading>
+      {totos ? (
+        totos.map((toto) => <TotoItem key={toto.id} {...toto} />)
+      ) : (
+        <Spinner />
+      )}
+    </>
   );
-}
+};
+
+export default AboutPage;

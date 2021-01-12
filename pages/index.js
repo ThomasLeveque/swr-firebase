@@ -1,11 +1,12 @@
 import Head from 'next/head';
-import { Heading } from '@chakra-ui/react';
+import { Heading, Spinner } from '@chakra-ui/react';
 
 import useCollection from '../hooks/useCollection';
 import { fetchCollection } from '../lib/fetchers-admin';
+import TotoItem from '../components/toto-item';
 
 // Server-side + Client-side
-export default function Home({ initialTotos }) {
+const HomePage = ({ initialTotos }) => {
   const { data: totos } = useCollection(
     'totos',
     { orderBy: ['value', 'asc'] },
@@ -13,25 +14,24 @@ export default function Home({ initialTotos }) {
   );
 
   return (
-    <div>
+    <>
       <Head>
         <title>SWR Firebase</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
-        <Heading as="h1">Coucou</Heading>
-        {!totos ? (
-          <p>Loading...</p>
-        ) : (
-          totos.map((toto) => <p key={toto.id}>{toto.name}</p>)
-        )}
-      </main>
-    </div>
+      <Heading as="h1" mb={3}>
+        Coucou
+      </Heading>
+      {totos ? (
+        totos.map((toto) => <TotoItem key={toto.id} {...toto} />)
+      ) : (
+        <Spinner />
+      )}
+    </>
   );
-}
+};
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const initialTotos = await fetchCollection('totos', {
     orderBy: ['value', 'asc']
   });
@@ -41,3 +41,5 @@ export async function getServerSideProps(context) {
     }
   };
 }
+
+export default HomePage;

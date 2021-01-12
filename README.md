@@ -13,5 +13,4 @@
 
 ### Todo
 
-* Create `useDocument` hook
 * Upgrade to TS
