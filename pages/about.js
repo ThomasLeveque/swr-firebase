@@ -1,12 +1,9 @@
 import Head from 'next/head';
-import useSWR from 'swr';
-import { fetchTotos } from '../lib/fetchers';
+import useCollection from '../hooks/useCollection';
 
 export default function About() {
-  const { data: totos } = useSWR(
-    ['totos', JSON.stringify({ where: ['value', '==', 1] })],
-    fetchTotos
-  );
+  const { data: totos } = useCollection('totos', { where: ['value', '==', 1] });
+
   return (
     <div>
       <Head>

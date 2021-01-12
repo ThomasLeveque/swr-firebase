@@ -1,11 +1,12 @@
 import Head from 'next/head';
-import useSWR from 'swr';
-import { fetchTotos } from '../lib/fetchers';
+import useCollection from '../hooks/useCollection';
+import { fetchCollection } from '../lib/fetchers-admin';
 
-export default function Home() {
-  const { data: totos } = useSWR(
-    ['totos', JSON.stringify({ orderBy: ['name', 'asc'] })],
-    fetchTotos
+export default function Home({ initialTotos }) {
+  const { data: totos } = useCollection(
+    'totos',
+    { orderBy: ['value', 'asc'] },
+    { initialData: initialTotos }
   );
 
   return (
@@ -25,4 +26,15 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const initialTotos = await fetchCollection('totos', {
+    orderBy: ['value', 'asc']
+  });
+  return {
+    props: {
+      initialTotos
+    }
+  };
 }
