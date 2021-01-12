@@ -1,7 +1,10 @@
 import Head from 'next/head';
+import { Heading } from '@chakra-ui/react';
+
 import useCollection from '../hooks/useCollection';
 import { fetchCollection } from '../lib/fetchers-admin';
 
+// Server-side + Client-side
 export default function Home({ initialTotos }) {
   const { data: totos } = useCollection(
     'totos',
@@ -17,7 +20,7 @@ export default function Home({ initialTotos }) {
       </Head>
 
       <main>
-        <h1>Coucou</h1>
+        <Heading as="h1">Coucou</Heading>
         {!totos ? (
           <p>Loading...</p>
         ) : (

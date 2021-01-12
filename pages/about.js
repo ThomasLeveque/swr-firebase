@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import useCollection from '../hooks/useCollection';
 
+// Client-side only
 export default function About() {
   const { data: totos } = useCollection('totos', { where: ['value', '==', 1] });
 
@@ -12,7 +13,7 @@ export default function About() {
       </Head>
 
       <main>
-        <h1>About</h1>
+      <Heading as="h1">About</Heading>
         {!totos ? (
           <p>Loading...</p>
         ) : (
