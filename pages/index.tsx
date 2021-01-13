@@ -2,19 +2,21 @@ import Head from 'next/head';
 import { NextPage, GetServerSideProps } from 'next';
 import { Heading, Spinner } from '@chakra-ui/react';
 
-import useCollection from '../hooks/useCollection';
-import { fetchCollection } from '../lib/fetchers-admin';
-import TotoItem from '../components/toto-item';
+import useCollection from '@hooks/useCollection';
+import { fetchCollection } from '@lib/admin/fetchers-admin';
+import TotoItem from '@components/toto-item';
+import { Toto } from '@data-types/toto.types';
+import { Document, Options } from '@lib/firebase.types';
 
-const dbOptions = { orderBy: ['value', 'asc'] };
+const dbOptions: Options = { orderBy: ['value', 'desc'] };
 
 type HomePageProps = {
-  initialTotos: any;
+  initialTotos: Document<Toto>[];
 };
 
 // Server-side + Client-side
 const HomePage: NextPage<HomePageProps> = ({ initialTotos }) => {
-  const { data: totos } = useCollection('totos', dbOptions, {
+  const { data: totos } = useCollection<Toto>('totos', dbOptions, {
     initialData: initialTotos
   });
 
@@ -28,7 +30,7 @@ const HomePage: NextPage<HomePageProps> = ({ initialTotos }) => {
         Coucou
       </Heading>
       {totos ? (
-        totos.map((toto: any) => <TotoItem key={toto.id} {...toto} />)
+        totos.map((toto: any) => <TotoItem key={toto.id} toto={toto} />)
       ) : (
         <Spinner />
       )}
@@ -37,7 +39,7 @@ const HomePage: NextPage<HomePageProps> = ({ initialTotos }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const initialTotos = await fetchCollection('totos', dbOptions);
+  const initialTotos = await fetchCollection<Toto>('totos', dbOptions);
   return {
     props: {
       initialTotos

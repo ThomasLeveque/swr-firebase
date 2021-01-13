@@ -2,13 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import { Link as ChakraLink } from '@chakra-ui/react';
 
+import { Toto } from '@data-types/toto.types';
+import { Document } from '@lib/firebase.types';
+
 type TotoItemProps = {
-  id: string;
-  name: string;
-  value: number;
+  toto: Document<Toto>;
 };
 
-const TotoItem: React.FC<TotoItemProps> = ({ id, name, value }) => {
+const TotoItem: React.FC<TotoItemProps> = ({ toto: { id, name, value } }) => {
   return (
     <Link href={`/${id}`} passHref>
       <ChakraLink display="block">

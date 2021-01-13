@@ -1,23 +1,18 @@
-import useSWR from 'swr';
-import { fetchCollection } from '../lib/fetchers';
+import useSWR, { ConfigInterface, responseInterface } from 'swr';
 
-const useCollection = (
+import { Document, Options } from '@lib/firebase.types';
+import { fetchCollection } from '@lib/client/fetchers';
+
+const useCollection = <Data>(
   collectionPath: string,
-  dbOptions?: any,
-  swrOptions?: any
-) => {
-  const { data, error, revalidate, mutate } = useSWR(
+  dbOptions?: Options,
+  swrOptions?: ConfigInterface<Document<Data>[]>
+): responseInterface<Document<Data>[], any> => {
+  return useSWR<Document<Data>[]>(
     dbOptions ? [collectionPath, JSON.stringify(dbOptions)] : collectionPath,
     fetchCollection,
     swrOptions
   );
-
-  return {
-    data,
-    error,
-    revalidate,
-    mutate
-  };
 };
 
 export default useCollection;

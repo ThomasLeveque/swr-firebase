@@ -1,19 +1,13 @@
-import useSWR from 'swr';
-import { fetchDocument } from '../lib/fetchers';
+import useSWR, { ConfigInterface, responseInterface } from 'swr';
 
-const useDocument = (documenPath: string, swrOptions?: any) => {
-  const { data, error, revalidate, mutate } = useSWR(
-    documenPath,
-    fetchDocument,
-    swrOptions
-  );
+import { Document } from '@lib/firebase.types';
+import { fetchDocument } from '@lib/client/fetchers';
 
-  return {
-    data,
-    error,
-    revalidate,
-    mutate
-  };
+const useDocument = <Data>(
+  documenPath: string,
+  swrOptions?: ConfigInterface<Document<Data>>
+): responseInterface<Document<Data>, any> => {
+  return useSWR<Document<Data>>(documenPath, fetchDocument, swrOptions);
 };
 
 export default useDocument;

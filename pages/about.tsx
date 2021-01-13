@@ -2,12 +2,13 @@ import Head from 'next/head';
 import { NextPage } from 'next';
 import { Heading, Spinner } from '@chakra-ui/react';
 
-import useCollection from '../hooks/useCollection';
-import TotoItem from '../components/toto-item';
+import useCollection from '@hooks/useCollection';
+import TotoItem from '@components/toto-item';
+import { Toto } from '@data-types/toto.types';
 
 // Client-side only
 const AboutPage: NextPage = () => {
-  const { data: totos } = useCollection('totos');
+  const { data: totos } = useCollection<Toto>('totos');
 
   return (
     <>
@@ -19,7 +20,7 @@ const AboutPage: NextPage = () => {
         About
       </Heading>
       {totos ? (
-        totos.map((toto: any) => <TotoItem key={toto.id} {...toto} />)
+        totos.map((toto) => <TotoItem key={toto.id} toto={toto} />)
       ) : (
         <Spinner />
       )}

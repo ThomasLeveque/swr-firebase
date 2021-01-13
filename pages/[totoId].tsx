@@ -3,11 +3,13 @@ import { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { Heading, Spinner } from '@chakra-ui/react';
 
-import useDocument from '../hooks/useDocument';
-import { fetchDocument } from '../lib/fetchers-admin';
+import useDocument from '@hooks/useDocument';
+import { fetchDocument } from '@lib/admin/fetchers-admin';
+import { Document } from '@lib/firebase.types';
+import { Toto } from '@data-types/toto.types';
 
 type TotoPageProps = {
-  initialToto: any;
+  initialToto: Document<Toto>;
 };
 
 const TotoPage: NextPage<TotoPageProps> = ({ initialToto }) => {
@@ -15,7 +17,7 @@ const TotoPage: NextPage<TotoPageProps> = ({ initialToto }) => {
     query: { totoId }
   } = useRouter();
 
-  const { data: toto } = useDocument(`totos/${totoId}`, {
+  const { data: toto } = useDocument<Toto>(`totos/${totoId}`, {
     initialData: initialToto
   });
 
@@ -32,7 +34,7 @@ const TotoPage: NextPage<TotoPageProps> = ({ initialToto }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const totoId = params?.totoId;
-  const initialToto = await fetchDocument(`totos/${totoId}`);
+  const initialToto = await fetchDocument<Toto>(`totos/${totoId}`);
   return {
     props: {
       initialToto

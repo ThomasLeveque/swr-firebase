@@ -2,8 +2,7 @@ import '../styles/globals.css';
 
 import { AppProps } from 'next/app';
 import Link from 'next/link';
-import { ChakraProvider } from '@chakra-ui/react';
-import { Link as ChakraLink, Box, Container } from '@chakra-ui/react';
+import { ChakraProvider, Link as ChakraLink, Box, Container } from '@chakra-ui/react';
 
 const Nav = () => {
   return (
