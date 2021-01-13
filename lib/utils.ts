@@ -1,6 +1,6 @@
-const formatDoc = (doc) => ({ id: doc.id, ...doc.data() });
+const formatDoc = (doc: any) => ({ id: doc.id, ...doc.data() });
 
-const handleCollectionOptions = (ref, options) => {
+const handleCollectionOptions = (ref: any, options: any) => {
   if (!options) {
     return ref;
   }
@@ -19,15 +19,18 @@ const handleCollectionOptions = (ref, options) => {
   return ref;
 };
 
-export const handleCollectionData = async (ref, options) => {
+export const handleCollectionData = async (
+  ref: any,
+  options: any
+): Promise<any> => {
   ref = handleCollectionOptions(ref, options);
   const snapshot = await ref.get();
   const data = snapshot.docs.map(formatDoc);
   return data;
-}
+};
 
-export const handleDocumentData = async (ref) => {
+export const handleDocumentData = async (ref: any): Promise<any> => {
   const doc = await ref.get();
   const data = formatDoc(doc);
   return data;
-}
+};

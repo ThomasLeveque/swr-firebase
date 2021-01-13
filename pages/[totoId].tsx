@@ -1,11 +1,16 @@
 import React from 'react';
+import { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { Heading, Spinner } from '@chakra-ui/react';
 
 import useDocument from '../hooks/useDocument';
 import { fetchDocument } from '../lib/fetchers-admin';
 
-const TotoPage = ({ initialToto }) => {
+type TotoPageProps = {
+  initialToto: any;
+};
+
+const TotoPage: NextPage<TotoPageProps> = ({ initialToto }) => {
   const {
     query: { totoId }
   } = useRouter();
@@ -25,13 +30,14 @@ const TotoPage = ({ initialToto }) => {
   );
 };
 
-export async function getServerSideProps({ params: { totoId } }) {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const totoId = params?.totoId;
   const initialToto = await fetchDocument(`totos/${totoId}`);
   return {
     props: {
       initialToto
     }
   };
-}
+};
 
 export default TotoPage;

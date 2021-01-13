@@ -2,7 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import { Link as ChakraLink } from '@chakra-ui/react';
 
-const TotoItem = ({ id, name, value }) => {
+type TotoItemProps = {
+  id: string;
+  name: string;
+  value: number;
+};
+
+const TotoItem: React.FC<TotoItemProps> = ({ id, name, value }) => {
   return (
     <Link href={`/${id}`} passHref>
       <ChakraLink display="block">

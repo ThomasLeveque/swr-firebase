@@ -1,9 +1,13 @@
 import useSWR from 'swr';
 import { fetchCollection } from '../lib/fetchers';
 
-const useCollection = (collectionPath, dbOptions, swrOptions) => {
+const useCollection = (
+  collectionPath: string,
+  dbOptions?: any,
+  swrOptions?: any
+) => {
   const { data, error, revalidate, mutate } = useSWR(
-    [collectionPath, JSON.stringify(dbOptions)],
+    dbOptions ? [collectionPath, JSON.stringify(dbOptions)] : collectionPath,
     fetchCollection,
     swrOptions
   );

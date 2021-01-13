@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 
+import { AppProps } from 'next/app';
 import Link from 'next/link';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Link as ChakraLink, Box, Container } from '@chakra-ui/react';
@@ -28,7 +29,7 @@ const Nav = () => {
   );
 };
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider resetCSS>
       <Box backgroundColor="gray.200" h="100vh">

@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { fetchDocument } from '../lib/fetchers';
 
-const useDocument = (documenPath, swrOptions) => {
+const useDocument = (documenPath: string, swrOptions?: any) => {
   const { data, error, revalidate, mutate } = useSWR(
     documenPath,
     fetchDocument,
