@@ -13,9 +13,12 @@ const formatDoc = <Data>(doc: DocumentSnapshot): Document<Data> => ({
 
 const handleCollectionOptions = (
   ref: CollectionReference | Query,
-  options: string
+  options: string | Options
 ): Query => {
-  const parsedOptions: Options = JSON.parse(options);
+  let parsedOptions = options as Options;
+  if (typeof options === 'string') {
+    parsedOptions = JSON.parse(options) as Options;
+  }
 
   if (parsedOptions.orderBy) {
     ref = ref.orderBy(...parsedOptions.orderBy);
@@ -33,7 +36,7 @@ const handleCollectionOptions = (
 
 export const handleCollectionData = async <Data>(
   ref: CollectionReference | Query,
-  options: string
+  options: string | Options
 ): Promise<Document<Data>[]> => {
   if (options) {
     ref = handleCollectionOptions(ref, options);
