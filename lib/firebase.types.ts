@@ -4,7 +4,7 @@ import {
   WhereFilterOp
 } from '@firebase/firestore-types';
 
-export type Document<Data extends {}> = Data & {
+export type Document<Data> = Data & {
   id: string;
 };
 
