@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Link as ChakraLink } from '@chakra-ui/react';
 
 import { Toto } from '@data-types/toto.types';
-import { Document } from '@lib/firebase.types';
+import { Document } from '@libs/firebase.types';
 
 type TotoItemProps = {
   toto: Document<Toto>;

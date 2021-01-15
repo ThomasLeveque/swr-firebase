@@ -1,7 +1,7 @@
 import useSWR, { ConfigInterface, responseInterface } from 'swr';
 
-import { Document } from '@lib/firebase.types';
-import { fetchDocument } from '@lib/client/fetchers';
+import { Document } from '@libs/firebase.types';
+import { fetchDocument } from '@libs/client/fetchers';
 
 const useDocument = <Data>(
   documenPath: string,

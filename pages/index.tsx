@@ -2,11 +2,11 @@ import Head from 'next/head';
 import { NextPage, GetServerSideProps } from 'next';
 import { Heading, Spinner } from '@chakra-ui/react';
 
-import useCollection from '@hooks/useCollection';
-import { fetchCollection } from '@lib/admin/fetchers-admin';
 import TotoItem from '@components/toto-item';
+import useCollection from '@hooks/useCollection';
 import { Toto } from '@data-types/toto.types';
-import { Document, Options } from '@lib/firebase.types';
+import { fetchCollection } from '@libs/admin/fetchers-admin';
+import { Document, Options } from '@libs/firebase.types';
 
 const dbOptions: Options = { orderBy: ['value', 'desc'] };
 

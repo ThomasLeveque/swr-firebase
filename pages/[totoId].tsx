@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { Heading, Spinner } from '@chakra-ui/react';
 
 import useDocument from '@hooks/useDocument';
-import { fetchDocument } from '@lib/admin/fetchers-admin';
-import { Document } from '@lib/firebase.types';
+import { fetchDocument } from '@libs/admin/fetchers-admin';
+import { Document } from '@libs/firebase.types';
 import { Toto } from '@data-types/toto.types';
 
 type TotoPageProps = {

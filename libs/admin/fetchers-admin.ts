@@ -1,4 +1,4 @@
-import { Document, Options } from '@lib/firebase.types';
+import { Document, Options } from '@libs/firebase.types';
 import { adminDB } from './firebase-admin';
 import {
   handleCollectionData,
